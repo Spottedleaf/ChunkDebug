@@ -3,7 +3,13 @@ package ca.spottedleaf.chunkdebug.data;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +55,13 @@ public final class ServerInformation {
         }
 
         return new ServerInformation(serverVersion, dataVersion, worlds, worldsByName);
+    }
+
+    public static ServerInformation fromFile(final File file) throws IOException {
+        try (final InputStreamReader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
+
+            return ServerInformation.fromJson(new JsonParser().parse(in).getAsJsonObject());
+        }
     }
 
 }

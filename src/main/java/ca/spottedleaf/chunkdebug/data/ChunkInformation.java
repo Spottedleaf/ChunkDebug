@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -57,20 +58,27 @@ public final class ChunkInformation implements Comparable<ChunkInformation> {
     }
 
     public static enum ChunkStatus {
-        UNLOADED,
-        EMPTY,
-        STRUCTURE_STARTS,
-        STRUCTURE_REFERENCES,
-        BIOMES,
-        NOISE,
-        SURFACE,
-        CARVERS,
-        LIQUID_CARVERS,
-        FEATURES,
-        LIGHT,
-        SPAWN,
-        HEIGHTMAPS,
-        FULL;
+        // generally, unloaded -> black, protochunk -> blue, loaded -> green
+        UNLOADED(Color.BLACK),
+        EMPTY(Color.BLUE),
+        STRUCTURE_STARTS(Color.BLUE),
+        STRUCTURE_REFERENCES(Color.BLUE),
+        BIOMES(Color.BLUE),
+        NOISE(Color.BLUE),
+        SURFACE(Color.BLUE),
+        CARVERS(Color.BLUE),
+        LIQUID_CARVERS(Color.BLUE),
+        FEATURES(Color.BLUE),
+        LIGHT(Color.BLUE),
+        SPAWN(Color.BLUE),
+        HEIGHTMAPS(Color.BLUE),
+        FULL(Color.GREEN);
+
+        public final Color displayColour;
+
+        ChunkStatus(final Color displayColour) {
+            this.displayColour = displayColour;
+        }
 
         public static ChunkStatus getByString(String status) {
             if (status.startsWith("minecraft:")) {

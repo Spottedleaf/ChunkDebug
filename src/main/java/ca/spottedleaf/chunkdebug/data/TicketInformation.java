@@ -2,6 +2,7 @@ package ca.spottedleaf.chunkdebug.data;
 
 import com.google.gson.JsonObject;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -46,20 +47,25 @@ public final class TicketInformation implements Comparable<TicketInformation> {
 
 
     public static enum TicketType {
-        START,
-        DRAGON,
-        PLAYER,
-        FORCED,
-        LIGHT,
-        PORTAL,
-        POST_TELEPORT,
-        UNKNOWN,
-        PLUGIN;
+        // in general: perma loaded -> red, temporary -> magenta
+        START(Color.RED),
+        DRAGON(Color.MAGENTA),
+        PLAYER(Color.YELLOW),
+        FORCED(Color.RED),
+        LIGHT(Color.MAGENTA),
+        PORTAL(Color.MAGENTA),
+        POST_TELEPORT(Color.MAGENTA),
+        UNKNOWN(Color.GRAY),
+        PLUGIN(Color.CYAN);
+
+        public final Color displayColour;
+
+        TicketType(final Color displayColour) {
+            this.displayColour=  displayColour;
+        }
 
         public static TicketType getByString(final String ticketType) {
             return TicketType.valueOf(ticketType.toUpperCase(Locale.ENGLISH));
         }
-
     }
-
 }
